@@ -1,0 +1,18 @@
+ public String stringtoKey(String S, int k) {
+        int count = -1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            if (S.length() % 2 == 0) {
+                if (S.charAt(i) != '-') {
+                    if (count == k) {
+                        sb.append("-");
+                    }
+                }
+            } else {
+                sb.append(S.charAt(i));
+            }
+            count++;
+        }
+
+        return sb.toString();
+    }
