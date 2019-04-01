@@ -1,0 +1,58 @@
+ public int levelMax(int[] arr) {
+        if (arr.length == 0) {
+            return -1;
+        }
+        double potencia = 0;
+        int countchildlevel = 0;
+
+        return levelMax(arr, 0, potencia, 0, countchildlevel, arr[0], 0);
+    }
+
+    private int levelMax(int[] arr, int level, double potencia, int K, int countchildlevel, int max, int maxaux) {
+        
+        if(Math.pow(2,potencia)==1){
+            potencia++;
+            return levelMax(arr,level,potencia,0,countchildlevel,max,maxaux);
+        }
+        int childleft = 2 * K + 1;
+        int childrigth = 2 * K + 2;
+
+    if (control(childleft, childrigth, arr.length - 1)) {
+            if (childrigth > arr.length - 1 && childleft<=arr.length-1) {
+                maxaux = maxaux+ arr[childleft];
+                return (maxaux > max) ? maxaux : max;
+            }else{
+            return (max>maxaux)? max:maxaux;
+            }
+
+        } else {
+            maxaux = maxaux + arr[childleft] + arr[childrigth];
+            countchildlevel += 2;
+        }
+        if (Math.pow(2,potencia) == countchildlevel) {
+            if (max < maxaux) {
+                max = maxaux;
+            }
+            if (childrigth == arr.length - 1) {
+                return max;
+            }
+            level++; K++;
+            potencia++;
+            return levelMax(arr, level++,potencia, K, 0, max, 0);
+        } else {
+            K++;
+            
+            return levelMax(arr, level, potencia, K, countchildlevel, max, maxaux);
+        }
+    }
+
+    private boolean control(int a, int b, int c) {
+        if (a > c && b > c) {
+            return true;
+        } else if (b > c) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
